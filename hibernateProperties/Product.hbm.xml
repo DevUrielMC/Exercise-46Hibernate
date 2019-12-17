@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name = "com.exercise46hibernate.model.Product" table = "productos">
+      
+      <meta attribute = "class-description">
+         This class contains the product detail. 
+      </meta>
+      
+      <id name = "idProduct" type = "int" column = "idProducto">
+         <generator class="native"/>
+      </id>
+      
+      <property name = "NameProduct" column = "nombreProducto" type = "string"/>
+      <property name = "priceProduct" column = "precioProducto" type = "double"/>
+      
+      
+   </class>
+</hibernate-mapping>
