@@ -15,6 +15,8 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import com.exercise46hibernate.model.Product;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 /**
  * Servlet implementation class CreateProductServlet
@@ -26,7 +28,7 @@ public class CreateProductServlet extends HttpServlet {
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//setear
-		response.setContentType("text/html charset='utf-8'");
+		response.setContentType("aplication/json charset='utf-8'");
 		PrintWriter output= response.getWriter();
 		
 		//objeto de persistencia o POJO
@@ -34,8 +36,31 @@ public class CreateProductServlet extends HttpServlet {
 		myProduct.setNameProduct(request.getParameter("txtNameProduct"));
 		myProduct.setPriceProduct((Double.parseDouble(request.getParameter("txtPriceProduct"))));
 		
-		System.out.println(myProduct.toString());
 		
+		String JsonString= request.getParameter("txtJson");
+		
+		//serializa a json o descerealiza a json
+		Gson myGson= new Gson();	//objeto 1 serializacion con gson
+		
+		ObjectMapper myMapper = new ObjectMapper();
+		Product myProduct2 = new Product();
+	
+		Product myProduct3 = new Product();		//objeto 3 libreria jackson 
+		
+		myProduct2 = myGson.fromJson(JsonString, Product.class);	//descerializacion de json
+		
+		myProduct3 = myMapper.readValue(JsonString, Product.class);		//jackson
+		
+		System.out.println("myProduct2 content: "+ myProduct2.toString());
+		
+		System.out.println("myProduct3 content: "+ myProduct3.toString());	//jackson
+		
+		output.append(myGson.toJson(myProduct));
+		
+		output.append(myMapper.writeValueAsString(myProduct3));
+		
+		System.out.println(myProduct.toString());
+		/*
 		//crear el objeto de configuracion
 		Configuration cfg = new Configuration();
 		cfg.configure("hibernate.cfg.xml");
@@ -57,7 +82,7 @@ public class CreateProductServlet extends HttpServlet {
 		
 		System.out.println("Se guardaron los datos");
 		
-		
+		*/
 		output.close();
 	}
 

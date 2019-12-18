@@ -22,7 +22,10 @@
 		<label for="txtPriceProduct">Price Product: </label>
 		<input type="text" id="txtPriceProduct" name="txtPriceProduct">
 	</p>
-	
+	<p>
+		<label for="txtJson">Json Text: </label>
+		<input type="text" id="txtJson" name="txtJson">
+	</p>
 	<input type="submit" value="Create Product">
 	
 	</form>
